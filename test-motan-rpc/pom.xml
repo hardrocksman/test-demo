@@ -1,0 +1,147 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>test-demo</artifactId>
+        <groupId>com.zhl.test</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>test-motan-rpc</artifactId>
+    <packaging>pom</packaging>
+
+    <name>test-motan-rpc</name>
+    <url>http://maven.apache.org</url>
+
+    <modules>
+        <module>test-motan-rpc-interface</module>
+        <module>test-motan-rpc-service</module>
+        <module>test-motan-rpc-client</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <file_encoding>UTF-8</file_encoding>
+        <junit_version>3.8.1</junit_version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit_version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.weibo</groupId>
+                <artifactId>motan-core</artifactId>
+                <version>0.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.weibo</groupId>
+                <artifactId>motan-transport-netty</artifactId>
+                <version>0.0.1</version>
+            </dependency>
+
+            <!-- only needed for spring-based features -->
+            <dependency>
+                <groupId>com.weibo</groupId>
+                <artifactId>motan-springsupport</artifactId>
+                <version>0.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>4.2.4.RELEASE</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.weibo</groupId>
+                <artifactId>motan-registry-consul</artifactId>
+                <version>0.0.1</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <encoding>${file_encoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <encoding>${file_encoding}</encoding>
+                    <!--<compilerArgument>-Xlint:all</compilerArgument>-->
+                    <!--
+                        <compilerArgument>-Xlint:all,-Xbootclasspath:${JAVA_HOME}\jre\lib\rt.jar</compilerArgument>-->
+                    <compilerArgs>
+                        <!--编译时将对程序作出额外细致的�?��-->
+                        <arg>-Xlint:all</arg>
+                    </compilerArgs>
+                    <compilerArguments>
+                        <verbose/>
+                        <bootclasspath>${JAVA_HOME}\jre\lib\rt.jar;${JAVA_HOME}\jre\lib\jce.jar</bootclasspath>
+                    </compilerArguments>
+
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                    <version>9.3.0.M2</version>
+                    <configuration>
+                        <scanIntervalSeconds>5</scanIntervalSeconds>
+                        <httpConnector>
+                            <port>9090</port>
+                        </httpConnector>
+                        <webApp>
+                            <contextPath>/</contextPath>
+                        </webApp>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.tld</include>
+                    <include>**/*.xls</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.tld</include>
+                    <include>**/*.txt</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+    </build>
+</project>

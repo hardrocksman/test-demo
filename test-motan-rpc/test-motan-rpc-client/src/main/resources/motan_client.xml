@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:motan="http://api.weibo.com/schema/motan"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+   http://api.weibo.com/schema/motan http://api.weibo.com/schema/motan.xsd">
+
+    <motan:registry regProtocol="consul" name="my_consul" address="10.0.4.110:8500"/>
+    <!-- reference to the remote service -->
+    <!--<motan:referer id="remoteService" interface="com.zhl.test.motan.rpc.IFooService" directUrl="localhost:8002"/>-->
+
+    <motan:referer id="remoteService" interface="com.zhl.test.motan.rpc.IFooService" registry="my_consul"/>
+</beans>
