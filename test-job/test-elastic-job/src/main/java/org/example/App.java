@@ -23,35 +23,36 @@ public class App {
         System.out.println("Start...");
         System.out.println(InetAddress.getLocalHost());
         new JobScheduler(createRegistryCenter(), createSimpleJobConfiguration()).init();
-
+//        new JobScheduler(createRegistryCenter(), createDataflowJobConfiguration()).init();
     }
 
     private static CoordinatorRegistryCenter createRegistryCenter() {
-        //ZookeeperConfiguration构造方法两个参数，serverLists(连接Zookeeper服务器的列表，包括IP地址和端口号，，多个地址用逗号分隔)和namespace(命名空间)
         CoordinatorRegistryCenter regCenter = new ZookeeperRegistryCenter(
-                new ZookeeperConfiguration("127.0.0.1:2181", "new-elastic-job-demo"));
+                new ZookeeperConfiguration("127.0.0.1:2181", "new-elastic-job-demo-1"));
         regCenter.init();
         return regCenter;
     }
 
     private static LiteJobConfiguration createSimpleJobConfiguration() {
-        //创建简单作业配置构建器，三个参数为：jobName(作业名称)，cron（作业启动时间的cron表达式），shardingTotalCount(作业分片总数)
         // 定义作业核心配置
-        JobCoreConfiguration simpleCoreConfig = JobCoreConfiguration.newBuilder("SimpleJobDemo", "0/15 * * * * ?", 2).build();
+        JobCoreConfiguration simpleCoreConfig = JobCoreConfiguration.newBuilder("SimpleJobDemo", "0/1 * * * * ?", 2).shardingItemParameters("0=A,1=B").build();
         // 定义SIMPLE类型配置
-        SimpleJobConfiguration simpleJobConfig = new SimpleJobConfiguration(simpleCoreConfig, JavaSimpleJob.class.getCanonicalName());
+        SimpleJobConfiguration simpleJobConfig = new SimpleJobConfiguration(simpleCoreConfig, MyElasticSimpleJob.class.getCanonicalName());
         // 定义Lite作业根配置
-        JobRootConfiguration simpleJobRootConfig = LiteJobConfiguration.newBuilder(simpleJobConfig).overwrite(true).build();
+        JobRootConfiguration simpleJobRootConfig = LiteJobConfiguration.newBuilder(simpleJobConfig).build();
 
         return (LiteJobConfiguration) simpleJobRootConfig;
 
     }
 
-    //配置DataflowJob
-    private static void setUpDataflowJob(final CoordinatorRegistryCenter registryCenter) {
-        JobCoreConfiguration coreConfiguration = JobCoreConfiguration.newBuilder("JavaDataflowJob", "0/10 * * * * ?", 2).build();
-        //数据流作业配置，第三个参数为streamingProcess（是否为流式处理）
-        DataflowJobConfiguration dataflowJobConfiguration = new DataflowJobConfiguration(coreConfiguration, JavaDataflowJob.class.getCanonicalName(), true);
-        new JobScheduler(registryCenter, LiteJobConfiguration.newBuilder(dataflowJobConfiguration).overwrite(true).build()).init();
+    private static LiteJobConfiguration createDataflowJobConfiguration() {
+        // 定义作业核心配置
+        JobCoreConfiguration dataflowCoreConfig = JobCoreConfiguration.newBuilder("DataflowJob", "0/30 * * * * ?", 10).build();
+        // 定义DATAFLOW类型配置
+        DataflowJobConfiguration dataflowJobConfig = new DataflowJobConfiguration(dataflowCoreConfig, MyElasticDataflowJob.class.getCanonicalName(), true);
+        // 定义Lite作业根配置
+        JobRootConfiguration dataflowJobRootConfig = LiteJobConfiguration.newBuilder(dataflowJobConfig).build();
+
+        return (LiteJobConfiguration) dataflowJobRootConfig;
     }
 }

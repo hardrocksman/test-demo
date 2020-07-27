@@ -28,6 +28,20 @@
             <version>2.1.5</version>
         </dependency>
 
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/com.dangdang/elastic-job-core &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.dangdang</groupId>-->
+<!--            <artifactId>elastic-job-core</artifactId>-->
+<!--            <version>2.0.1</version>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>io.elasticjob</groupId>-->
+<!--            <artifactId>elastic-job-lite-core</artifactId>-->
+<!--            <version></version>-->
+<!--        </dependency>-->
+
+
     </dependencies>
 
     <build>

@@ -23,6 +23,9 @@
     <module>test-redis</module>
     <module>test-job</module>
     <module>test-mq</module>
+      <module>test-distribute-transaction</module>
+      <module>test-jmh</module>
+      <module>test-io</module>
   </modules>
 
   <name>test</name>
