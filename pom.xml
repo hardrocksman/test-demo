@@ -26,6 +26,9 @@
       <module>test-distribute-transaction</module>
       <module>test-jmh</module>
       <module>test-io</module>
+      <module>test-mybatis</module>
+      <module>test-spring</module>
+      <module>test-cglib</module>
   </modules>
 
   <name>test</name>
