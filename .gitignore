@@ -1,0 +1,6 @@
+/test.iml
+/test-io/test-io.iml
+*.iml
+.idea
+**/target/*
+result.json
