@@ -10,6 +10,11 @@ import java.util.Date;
 
 public class BIOServer {
 
+    public static void main(String[] args) {
+        BIOServer server = new BIOServer();
+        server.initBIOServer(8888);
+    }
+
     public void initBIOServer(int port) {
         //服务端Socket
         ServerSocket serverSocket = null;
@@ -45,11 +50,5 @@ public class BIOServer {
     public String stringNowTime() {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return format.format(new Date());
-    }
-
-    public static void main(String[] args) {
-        BIOServer server = new BIOServer();
-        server.initBIOServer(8888);
-
     }
 }

@@ -1,4 +1,4 @@
-package org.example.nio.server;
+package org.example.nio.server.single;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -17,13 +17,13 @@ import java.util.Iterator;
  * @author xiezhengchao
  * @since 2018/4/7 14:32
  */
-public class NioServer{
+public class SingleReactorServer {
 
     private ByteBuffer readBuffer = ByteBuffer.allocateDirect(1024);
     private ByteBuffer writeBuffer = ByteBuffer.allocateDirect(1024);
     private Selector selector;
 
-    public NioServer() throws IOException{
+    public SingleReactorServer() throws IOException{
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
         serverSocketChannel.configureBlocking(false);
 
@@ -31,14 +31,14 @@ public class NioServer{
         serverSocket.bind(new InetSocketAddress(8080));
         System.out.println("listening on port 8080");
 
-        this.selector = Selector.open();;
+        this.selector = Selector.open();
 
         // 绑定channel的accept
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
     }
 
     public static void main(String[] args) throws Exception{
-        new NioServer().go();
+        new SingleReactorServer().go();
     }
 
     private void go() throws Exception{
