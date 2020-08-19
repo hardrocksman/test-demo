@@ -29,6 +29,7 @@
       <module>test-mybatis</module>
       <module>test-spring</module>
       <module>test-cglib</module>
+      <module>test-tomcat</module>
   </modules>
 
   <name>test</name>
