@@ -18,6 +18,8 @@
     <modules>
         <module>test-seata</module>
         <module>test-tcc</module>
+        <module>test-xa</module>
+        <module>test-JTA-Atomikos</module>
     </modules>
 
     <properties>
