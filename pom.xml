@@ -29,6 +29,8 @@
       <module>test-mybatis</module>
       <module>test-spring</module>
       <module>test-cglib</module>
+      <module>test-tomcat</module>
+    <module>test-canal</module>
   </modules>
 
   <name>test</name>
