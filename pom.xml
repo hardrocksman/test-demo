@@ -31,6 +31,8 @@
       <module>test-cglib</module>
       <module>test-tomcat</module>
     <module>test-canal</module>
+      <module>test-proxy</module>
+    <module>test-zookeeper</module>
   </modules>
 
   <name>test</name>
