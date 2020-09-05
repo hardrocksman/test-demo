@@ -33,6 +33,7 @@
     <module>test-canal</module>
       <module>test-proxy</module>
     <module>test-zookeeper</module>
+    <module>test-digester</module>
   </modules>
 
   <name>test</name>
