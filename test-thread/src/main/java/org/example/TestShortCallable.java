@@ -2,18 +2,18 @@ package org.example;
 
 import java.util.concurrent.Callable;
 
-public class TestCallable implements Callable<java.lang.Boolean> {
+public class TestShortCallable implements Callable<Boolean> {
 
     private int index;
 
-    public TestCallable(int index) {
+    public TestShortCallable(int index) {
         this.index = index;
     }
 
     @Override
     public java.lang.Boolean call() throws Exception {
         System.out.println("thread:" + Thread.currentThread().getName() + " process:" + index);
-        Thread.sleep(1000000);
+        Thread.sleep(2000);
         return true;
     }
 }
