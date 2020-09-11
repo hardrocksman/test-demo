@@ -35,6 +35,7 @@
     <module>test-zookeeper</module>
     <module>test-digester</module>
     <module>test-thread</module>
+    <module>test-asm</module>
   </modules>
 
   <name>test</name>

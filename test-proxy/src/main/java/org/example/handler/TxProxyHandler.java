@@ -14,9 +14,9 @@ public class TxProxyHandler implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        System.out.println("事务前处理");
+        System.out.println("处理前");
         Object result = method.invoke(target, args);
-        System.out.println("事务后处理");
+        System.out.println("处理后");
         return result;
     }
 }

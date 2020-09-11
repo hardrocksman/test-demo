@@ -23,9 +23,9 @@ public class TestJdkProxy {
         orderService.createOrder(1);
 
 
-        try {
-            //2.获取代理类的class
-
+//        try {
+//            //2.获取代理类的class
+//
 //            Class proxyClazz = Proxy.getProxyClass(OrderService.class.getClassLoader(), OrderService.class);
 //            //3.获得代理类的构造函数，并传入参数类型InvocationHandler.class
 //            Constructor constructor = proxyClazz.getConstructor(InvocationHandler.class);
@@ -35,10 +35,10 @@ public class TestJdkProxy {
 //            orderService.createOrder(2);
 //
 //            System.out.println("$Proxy0.class全名: " + proxyClazz);
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 }

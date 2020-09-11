@@ -33,6 +33,10 @@ spring:
 
 
 queue:
+  delay: '[{"delayQueueName":"test.1.queue","expireTime":200000},{"delayQueueName":"test.2.queue","expireTime":200000}]'
+  defaultDeadExchange: test.default.dead.exchange
+  defaultDeadRouteKey: test.default.dead.routekey
+  defaultDeadQueue: test.default.dead.queue
   test:
     name: rabbit.test.queue
     dlx:

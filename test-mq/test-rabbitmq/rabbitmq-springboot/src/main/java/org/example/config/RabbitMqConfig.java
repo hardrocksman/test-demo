@@ -6,6 +6,7 @@ import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,6 +49,23 @@ public class RabbitMqConfig {
         args.put("x-message-ttl", 300000);
         //队列持久
         return new Queue(queueName, true, false, false, args);
+    }
+
+    /**
+     * 为队列绑定死信队列
+     * @return
+     */
+    @Bean
+    public Queue queueB() {
+        Map<String, Object> args = new HashMap<>(3);
+        //声明死信交换器
+        args.put("x-dead-letter-exchange", dlxExchange);
+        //声明死信路由键
+        args.put("x-dead-letter-routing-key", dlxRouteKey);
+        //声明队列消息过期时间 30分钟
+        args.put("x-message-ttl", 3000);
+        //队列持久
+        return new Queue("rabbit.test2.queue", true, false, false, args);
     }
 
     /**
@@ -98,5 +116,10 @@ public class RabbitMqConfig {
         });
 
         return rabbitTemplate;
+    }
+
+    @Bean
+    public RabbitAdmin rabbitAdmin (CachingConnectionFactory connectionFactory) {
+        return new RabbitAdmin(connectionFactory);
     }
 }

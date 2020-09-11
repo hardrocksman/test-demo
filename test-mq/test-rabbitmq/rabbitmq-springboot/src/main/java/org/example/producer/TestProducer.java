@@ -21,8 +21,8 @@ public class TestProducer {
 
     @PostConstruct
     public void run() {
-        Thread t = new Thread(new SendJob(testQueue, rabbitTemplate));
-        t.start();
+//        Thread t = new Thread(new SendJob(testQueue, rabbitTemplate));
+//        t.start();
     }
 }
 
@@ -43,7 +43,7 @@ class SendJob implements Runnable {
             Long now = System.currentTimeMillis();
 
             CorrelationData correlationData = new CorrelationData(now.toString());
-            rabbitTemplate.convertAndSend(queue, (Object) now.toString(), correlationData);
+            rabbitTemplate.convertAndSend("test.1.queue", (Object) now.toString(), correlationData);
 
             try {
                 Thread.sleep(2000);
