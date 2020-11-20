@@ -36,6 +36,9 @@
     <module>test-digester</module>
     <module>test-thread</module>
     <module>test-asm</module>
+      <module>test-largeFile</module>
+      <module>test-mongo</module>
+      <module>test-notify</module>
   </modules>
 
   <name>test</name>

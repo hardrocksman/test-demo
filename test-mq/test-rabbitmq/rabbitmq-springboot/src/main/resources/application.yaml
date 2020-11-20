@@ -3,10 +3,10 @@ server:
 
 spring:
   rabbitmq:
-    host: localhost
+    host: 10.60.48.183
     port: 5672
-    username: guest
-    password: guest
+    username: root
+    password: root
     virtual-host: /
     publisher-confirm-type: correlated
     publisher-returns: true
@@ -39,6 +39,7 @@ queue:
   defaultDeadQueue: test.default.dead.queue
   test:
     name: rabbit.test.queue
+    notify: settle.notify.queue
     dlx:
       exchange: dlx.exchange
       routeKey: dlx.route

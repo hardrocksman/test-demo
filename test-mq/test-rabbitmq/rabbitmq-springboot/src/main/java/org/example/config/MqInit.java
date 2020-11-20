@@ -2,7 +2,6 @@ package org.example.config;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.example.consumer.MyMessageListener;
 import org.example.model.DelayQueueInfo;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.core.Queue;

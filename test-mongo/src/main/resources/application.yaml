@@ -1,0 +1,9 @@
+spring:
+  data:
+    mongodb:
+      host: 47.96.251.75
+      port: 27017
+      database: ats
+# 默认没有账号密码
+      username: ats
+      password: '123456'

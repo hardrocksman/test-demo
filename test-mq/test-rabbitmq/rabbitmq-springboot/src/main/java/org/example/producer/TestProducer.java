@@ -1,6 +1,9 @@
 package org.example.producer;
 
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import org.example.model.NotifyPaymentModel;
+import org.example.model.PanelData;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.UUID;
 
 @Component
 @Slf4j
@@ -16,13 +20,13 @@ public class TestProducer {
     @Autowired
     RabbitTemplate rabbitTemplate;
 
-    @Value("${queue.test.name}")
+    @Value("${queue.test.notify}")
     private String testQueue;
 
     @PostConstruct
     public void run() {
-//        Thread t = new Thread(new SendJob(testQueue, rabbitTemplate));
-//        t.start();
+        Thread t = new Thread(new SendJob("settle.notify.queue", rabbitTemplate));
+        t.start();
     }
 }
 
@@ -38,15 +42,34 @@ class SendJob implements Runnable {
 
     @Override
     public void run() {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 2; i++) {
+            Gson gson = new Gson();
 
             Long now = System.currentTimeMillis();
+            String uuid = UUID.randomUUID().toString();
+//            PanelData pa = PanelData.builder()
+//                    .GunNumber("GunNumber")
+//                    .holdDeptId(11L)
+//                    .uuid(uuid)
+//                    .reason(0)
+//                    .timestamp(System.currentTimeMillis())
+//                    .build();
 
-            CorrelationData correlationData = new CorrelationData(now.toString());
-            rabbitTemplate.convertAndSend("test.1.queue", (Object) now.toString(), correlationData);
+            NotifyPaymentModel model = NotifyPaymentModel.builder()
+                    .data("hgjkaskhgbjdkjhsbdskjhda")
+                    .notifyCount(0)
+                    .notifyUrl("http://aaa.sss")
+                    .build();
+
+            String sendData = gson.toJson(model);
+
+            System.out.println("send 发送到panel mq data:[{}]" + sendData);
+
+            CorrelationData correlationData = new CorrelationData(uuid);
+            rabbitTemplate.convertAndSend(queue, (Object) sendData, correlationData);
 
             try {
-                Thread.sleep(2000);
+                Thread.sleep(10000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
