@@ -29,12 +29,14 @@ public class BIOServer {
             while(true) {
                 socket = serverSocket.accept();
                 System.out.println(stringNowTime() + ": id为" + socket.hashCode()+ "的Clientsocket connected");
-                reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                while ((inputContent = reader.readLine()) != null) {
-                    System.out.println("收到id为" + socket.hashCode() + "  "+inputContent);
-                    count++;
-                }
-                System.out.println("id为" + socket.hashCode()+ "的Clientsocket "+stringNowTime()+"读取结束");
+//                reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+//                while ((inputContent = reader.readLine()) != null) {
+//                    System.out.println("收到id为" + socket.hashCode() + "  "+inputContent);
+//                    count++;
+//                }
+//                System.out.println("id为" + socket.hashCode()+ "的Clientsocket "+stringNowTime()+"读取结束");
+
+                new Thread(new ReadThread(socket)).start();
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -11,6 +11,7 @@
   <modules>
     <module>test-nio</module>
     <module>test-bio</module>
+      <module>test-netty</module>
   </modules>
 
   <name>test-io</name>

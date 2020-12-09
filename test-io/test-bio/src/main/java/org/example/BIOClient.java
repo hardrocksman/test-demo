@@ -14,22 +14,33 @@ public class BIOClient {
         String inputContent;
         int count = 0;
         try {
-            reader = new BufferedReader(new InputStreamReader(System.in));
+//            reader = new BufferedReader(new InputStreamReader(System.in));
             socket = new Socket(host, port);
-            writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+
+
+            //reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             System.out.println("clientSocket started: " + stringNowTime());
-            while (((inputContent = reader.readLine()) != null) && count < 2) {
-                inputContent = stringNowTime() + ": 第" + count + "条消息: " + inputContent + "\n";
-                writer.write(inputContent);//将消息发送给服务端
+            writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            inputContent = "qqqqqqq";
+            for (int i = 0; i < 10000 ; i++) {
+                System.out.println("发送数据");
+                inputContent = stringNowTime() + ":index" + count + "message:" + inputContent + "\n";
+                writer.write(inputContent);
                 writer.flush();
-                count++;
+
+                Thread.sleep(1000);
             }
+
+
+//            while (((inputContent = reader.readLine()) != null) && count < 2) {
+//                count++;
+//            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
                 socket.close();
-                reader.close();
+                //reader.close();
                 writer.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -44,6 +55,6 @@ public class BIOClient {
 
     public static void main(String[] args) {
         BIOClient client = new BIOClient();
-        client.initBIOClient("127.0.0.1", 8888);
+        client.initBIOClient("10.60.46.174", 8888);
     }
 }
