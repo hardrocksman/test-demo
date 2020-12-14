@@ -39,6 +39,7 @@
       <module>test-largeFile</module>
       <module>test-mongo</module>
       <module>test-notify</module>
+      <module>test-agent</module>
   </modules>
 
   <name>test</name>

@@ -1,8 +1,6 @@
 package org.example;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
@@ -21,14 +19,12 @@ public class BIOServer {
         //客户端socket
         Socket socket = null;
         BufferedReader reader = null;
-        String inputContent;
-        int count = 0;
         try {
             serverSocket = new ServerSocket(port);
-            System.out.println(stringNowTime() + ": serverSocket started");
-            while(true) {
+            System.out.println(stringNowTime() + ":serverSocket started");
+            while (true) {
                 socket = serverSocket.accept();
-                System.out.println(stringNowTime() + ": id为" + socket.hashCode()+ "的Clientsocket connected");
+                System.out.println(stringNowTime() + ":id:" + socket.hashCode() + " Clientsocket connected");
 //                reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 //                while ((inputContent = reader.readLine()) != null) {
 //                    System.out.println("收到id为" + socket.hashCode() + "  "+inputContent);
@@ -40,7 +36,7 @@ public class BIOServer {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             try {
                 reader.close();
                 socket.close();
@@ -49,8 +45,51 @@ public class BIOServer {
             }
         }
     }
+
     public String stringNowTime() {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return format.format(new Date());
+    }
+
+    class ReadThread implements Runnable {
+
+        private Socket socket;
+
+        public ReadThread(Socket socket) {
+            this.socket = socket;
+        }
+
+        @Override
+        public void run() {
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+
+                String inputContent = null;
+//                while ((inputContent = reader.readLine()) != null) {
+//                    System.out.println("get id:" + socket.hashCode() + ":content:" + inputContent);
+//
+//                    //writer.write(inputContent);
+//                }
+                int count = 0;
+                while(true) {
+                    Thread.sleep(5000);
+                    inputContent = stringNowTime() + ":index" + count + "message:" + count + "\n";
+                    count++;
+                    writer.write(inputContent);
+                    writer.flush();
+                }
+
+                // System.out.println("id:" + socket.hashCode() + ":Clientsocket " + stringNowTime() + "read eof");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        public String stringNowTime() {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            return format.format(new Date());
+        }
     }
 }

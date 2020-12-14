@@ -35,7 +35,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>org.example.BIOClient</mainClass>
+              <mainClass>org.example.BIOServer</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>
