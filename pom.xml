@@ -40,6 +40,8 @@
       <module>test-mongo</module>
       <module>test-notify</module>
       <module>test-agent</module>
+      <module>test-apollo</module>
+      <module>test-sign</module>
   </modules>
 
   <name>test</name>
