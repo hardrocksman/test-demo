@@ -42,7 +42,7 @@ class SendJob implements Runnable {
 
     @Override
     public void run() {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 1000; i++) {
             Gson gson = new Gson();
 
             Long now = System.currentTimeMillis();
@@ -66,7 +66,7 @@ class SendJob implements Runnable {
             System.out.println("send 发送到panel mq data:[{}]" + sendData);
 
             CorrelationData correlationData = new CorrelationData(uuid);
-            rabbitTemplate.convertAndSend(queue, (Object) sendData, correlationData);
+            rabbitTemplate.convertAndSend("test-1-1-1", (Object) sendData, correlationData);
 
             try {
                 Thread.sleep(10000);

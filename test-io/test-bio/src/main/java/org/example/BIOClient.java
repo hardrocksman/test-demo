@@ -16,7 +16,7 @@ public class BIOClient {
         try {
 //            reader = new BufferedReader(new InputStreamReader(System.in));
             socket = new Socket(host, port);
-
+            //socket.setSoTimeout(300000);
             System.out.println("clientSocket started: " + stringNowTime());
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -45,6 +45,7 @@ public class BIOClient {
 //                count++;
 //            }
         } catch (Exception e) {
+            System.out.println(new Date());
             e.printStackTrace();
         } finally {
             try {
@@ -64,7 +65,7 @@ public class BIOClient {
 
     public static void main(String[] args) {
         BIOClient client = new BIOClient();
-        client.initBIOClient("47.102.127.224", 8888);
+        client.initBIOClient("localhost", 8888);
 //        client.initBIOClient("localhost", 8888);
     }
 }

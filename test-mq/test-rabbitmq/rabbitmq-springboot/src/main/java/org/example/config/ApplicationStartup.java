@@ -1,28 +1,29 @@
-//package org.example.config;
-//
-//import com.google.gson.Gson;
-//import com.google.gson.reflect.TypeToken;
-//import lombok.extern.slf4j.Slf4j;
-//import org.example.model.DelayQueueInfo;
-//import org.springframework.amqp.core.*;
-//import org.springframework.amqp.rabbit.core.RabbitAdmin;
-//import org.springframework.amqp.rabbit.listener.MessageListenerContainer;
-//import org.springframework.amqp.rabbit.listener.RabbitListenerEndpointRegistry;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.beans.factory.annotation.Value;
-//import org.springframework.context.ApplicationListener;
-//import org.springframework.context.event.ContextRefreshedEvent;
-//import org.springframework.stereotype.Component;
-//import org.springframework.util.StringUtils;
-//
-//import java.util.Comparator;
-//import java.util.HashMap;
-//import java.util.List;
-//import java.util.Map;
-//
-//@Component
-//@Slf4j
-//public class ApplicationStartup implements ApplicationListener<ContextRefreshedEvent> {
+package org.example.config;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import lombok.extern.slf4j.Slf4j;
+import org.example.model.DelayQueueInfo;
+import org.example.task.CreateQueueJob;
+import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.amqp.rabbit.listener.MessageListenerContainer;
+import org.springframework.amqp.rabbit.listener.RabbitListenerEndpointRegistry;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Component
+@Slf4j
+public class ApplicationStartup implements ApplicationListener<ContextRefreshedEvent> {
 //    @Value("${queue.delay}")
 //    private String delayQueueStr;
 //    @Value("${queue.defaultDeadExchange}")
@@ -31,16 +32,16 @@
 //    private String defaultDeadRouteKey;
 //    @Value("${queue.defaultDeadQueue}")
 //    private String defaultDeadQueue;
-//    @Autowired
-//    private RabbitAdmin rabbitAdmin;
-//    @Autowired
-//    private RabbitListenerEndpointRegistry rabbitListenerEndpointRegistry;
+    @Autowired
+    private RabbitAdmin rabbitAdmin;
+    @Autowired
+    private RabbitListenerEndpointRegistry rabbitListenerEndpointRegistry;
 //    @Autowired
 //    private TestConsumer consumer;
-//
-//    @Override
-//    public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-//        // 初始化完成后. 执行一次同步系统参数
+
+    @Override
+    public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+        // 初始化完成后. 执行一次同步系统参数
 //        MessageListenerContainer messageListenerContainer = rabbitListenerEndpointRegistry.getListenerContainer("settle-search-consumer");
 //        messageListenerContainer.stop();
 //
@@ -123,6 +124,16 @@
 //        if (!messageListenerContainer.isRunning()) {
 //            messageListenerContainer.start();
 //        }
-//    }
-//
-//}
+
+
+        for (int i = 0; i < 10; i++) {
+            CreateQueueJob job = new CreateQueueJob(rabbitAdmin);
+
+            Thread t = new Thread(job);
+            t.start();
+        }
+
+
+    }
+
+}

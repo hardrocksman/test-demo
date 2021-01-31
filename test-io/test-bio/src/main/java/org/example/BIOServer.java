@@ -24,6 +24,7 @@ public class BIOServer {
             System.out.println(stringNowTime() + ":serverSocket started");
             while (true) {
                 socket = serverSocket.accept();
+//                socket.setSoTimeout(120000);
                 System.out.println(stringNowTime() + ":id:" + socket.hashCode() + " Clientsocket connected");
 //                reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 //                while ((inputContent = reader.readLine()) != null) {
@@ -67,14 +68,15 @@ public class BIOServer {
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
                 String inputContent = null;
-//                while ((inputContent = reader.readLine()) != null) {
-//                    System.out.println("get id:" + socket.hashCode() + ":content:" + inputContent);
-//
-//                    //writer.write(inputContent);
-//                }
+                while ((inputContent = reader.readLine()) != null) {
+                    System.out.println("get id:" + socket.hashCode() + ":content:" + inputContent);
+
+                    //writer.write(inputContent);
+                }
                 int count = 0;
                 while(true) {
-                    Thread.sleep(5000);
+                    System.out.println("开始休眠。。。。");
+                    Thread.sleep(1200000);
                     inputContent = stringNowTime() + ":index" + count + "message:" + count + "\n";
                     count++;
                     writer.write(inputContent);

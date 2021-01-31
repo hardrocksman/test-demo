@@ -1,0 +1,23 @@
+package org.example.agent;
+
+import java.lang.instrument.Instrumentation;
+
+public class TestAgent {
+
+    public static void premain(String agentArgs, Instrumentation inst) {
+        System.out.println("start test agent");
+        
+        System.out.println(agentArgs);
+    }
+
+
+    /**
+     * 动态 attach 方式启动，运行此方法
+     *
+     * @param agentArgs
+     * @param inst
+     */
+    public static void agentmain(String agentArgs, Instrumentation inst) {
+        System.out.println("agentmain");
+    }
+}

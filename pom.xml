@@ -42,6 +42,7 @@
       <module>test-agent</module>
       <module>test-apollo</module>
       <module>test-sign</module>
+      <module>test-springcloud</module>
   </modules>
 
   <name>test</name>
